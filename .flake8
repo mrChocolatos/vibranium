@@ -1,0 +1,5 @@
+[flake8]
+filename = *.py
+show-source = true
+exclude = resources/*,src/testdata/*,.venv,.git,.tox,*egg,*lib/python*,*.ini,*.yml,*.txt,*.md,*.sh,*.json,./venv
+max-line-length = 120
