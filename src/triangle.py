@@ -1,4 +1,4 @@
-from src.Figure import Figure
+from src.figure import Figure
 
 
 class Triangle(Figure):
@@ -11,11 +11,11 @@ class Triangle(Figure):
         self.side_b = side_b
         self.side_c = side_c
         self.name = f"Triangle a = {side_a}, b = {side_b}, c = {side_c}"
-        self.p = (1/2)*(self.side_a + self.side_b + self.side_c)
+        self.p = (1 / 2) * (self.side_a + self.side_b + self.side_c)
         super().__init__()
 
     @property
-    def get_area(self):
+    def area(self):
         return (self.p * (self.p - self.side_a) * (self.p - self.side_b) * (self.p - self.side_c))**0.5
 
     @property

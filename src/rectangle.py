@@ -1,4 +1,4 @@
-from src.Figure import Figure
+from src.figure import Figure
 
 
 class Rectangle(Figure):
@@ -11,7 +11,7 @@ class Rectangle(Figure):
         self.name = f"Rectangle {side_a} and {side_b}"
 
     @property
-    def get_area(self):
+    def area(self):
         return self.side_a * self.side_b
 
     @property

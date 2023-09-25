@@ -1,4 +1,4 @@
-from src.Figure import Figure
+from src.figure import Figure
 
 
 class Square(Figure):
@@ -10,7 +10,7 @@ class Square(Figure):
         self.name = f"Square {side}"
 
     @property
-    def get_area(self):
+    def area(self):
         return self.side_a ** 2
 
     @property

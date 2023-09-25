@@ -1,33 +1,24 @@
 import pytest
 
-from src.Circle import Circle
-from src.Rectangle import Rectangle
-from src.Square import Square
-from src.Trinagle import Triangle
+from src.figure import Figure
+from src.circle import Circle
+from src.rectangle import Rectangle
+from src.square import Square
+from src.triangle import Triangle
 
 
-def test_for_correct_area():
-    triangle = Triangle(13, 14, 15)
-    square = Square(5)
-    circle = Circle(10)
-    rectangle = Rectangle(4, 5)
-
-    assert triangle.get_area == 84
-    assert square.get_area == 25
-    assert circle.get_area == 314
-    assert rectangle.get_area == 20
+@pytest.mark.parametrize("figure, area",
+                         [(Triangle(13, 14, 15), 84), (Square(5), 25),
+                          (Circle(10), 314), (Rectangle(4, 5), 20)])
+def test_for_correct_area(figure, area):
+    assert figure.area == area
 
 
-def test_for_correct_perimeter():
-    triangle = Triangle(13, 14, 15)
-    square = Square(5)
-    circle = Circle(10)
-    rectangle = Rectangle(4, 5)
-
-    assert triangle.get_perimeter == 42
-    assert square.get_perimeter == 20
-    assert circle.get_perimeter == 31
-    assert rectangle.get_perimeter == 18
+@pytest.mark.parametrize("figure, perimeter",
+                         [(Triangle(13, 14, 15), 42), (Square(5), 20),
+                          (Circle(10), 31), (Rectangle(4, 5), 18)])
+def test_for_correct_perimeter(figure, perimeter):
+    assert figure.get_perimeter == perimeter
 
 
 @pytest.mark.parametrize("a, b, c", [(13, 14, -15), (3, 4, -5), (4, -5, 6), (-1, 2, 2)])
@@ -51,25 +42,14 @@ def test_for_correct_sides_rectangle():
         Rectangle(4, -5)
 
 
-def test_add_figure_area():
-    triangle = Triangle(13, 14, 15)
-    square = Square(5)
-    circle = Circle(10)
-    rectangle = Rectangle(4, 5)
-    assert triangle.add_area(square) == 109
-    assert circle.add_area(rectangle) == 334
+@pytest.mark.parametrize("figure, figure_to_add, result_area",
+                         [(Triangle(13, 14, 15), Square(5), 109),
+                          (Circle(10), Rectangle(4, 5), 334)])
+def test_add_figure_area(figure: Figure, figure_to_add: Figure, result_area):
+    assert figure.add_area(figure_to_add) == result_area
 
 
-def test_add_figure_area_negative():
-    triangle = Triangle(13, 14, 15)
-    square = Square(5)
-    circle = Circle(10)
-    rectangle = Rectangle(4, 5)
+@pytest.mark.parametrize("figure", [(Triangle(13, 14, 15)), (Square(5)), (Circle(10)), (Rectangle(4, 5))])
+def test_add_figure_area_negative(figure: Figure):
     with pytest.raises(AssertionError):
-        assert triangle.add_area(5)
-    with pytest.raises(AssertionError):
-        assert square.add_area("asd")
-    with pytest.raises(AssertionError):
-        assert circle.add_area({"asd": 12})
-    with pytest.raises(AssertionError):
-        assert rectangle.add_area(MemoryError)
+        assert figure.add_area(4)
