@@ -6,7 +6,7 @@ def main():
 
     data, __ = read_csv("books.csv")
     count_books = len(data)
-    users, user_count = read_json_file("users.json")
+    users = read_json_file("users.json")
     row = iter_books(data)
     while count_books != 0:
         for user in users:
@@ -14,9 +14,7 @@ def main():
                 break
             user["books"].append(next(row))
             count_books -= 1
-    groom_users_json_file(users)
-    with open("result.json", "w") as file:
-        file.write(json.dumps(users, indent=4))
+    write_json_file(users)
 
 
 def iter_books(file):
@@ -26,10 +24,9 @@ def iter_books(file):
 
 def read_json_file(path: str):
     with open(path, 'r') as file:
-        users_file = json.load(file)
-        groom_users_json_file(users_file)
-        count = len(users_file)
-    return users_file, count
+        users = json.load(file)
+        groom_users_json_file(users)
+    return users
 
 
 def read_csv(file_path):
@@ -45,6 +42,17 @@ def groom_users_json_file(users_file):
             if key not in ["name", "gender", "address", "age", "books"]:
                 del item[key]
                 item["books"] = []
+    return users_file
+
+
+def write_json_file(users_with_books):
+    with open("resul1.json", "w") as file:
+        groom_books_list(users_with_books)
+        file.write(json.dumps(users_with_books, indent=4))
+
+
+def groom_books_list(users_file):
+    for item in users_file:
         for book in item["books"]:
             for key in list(book.keys()):
                 if key not in ["title", "author", "pages", "genre"]:
