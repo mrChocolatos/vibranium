@@ -46,7 +46,7 @@ def groom_users_json_file(users_file):
 
 
 def write_json_file(users_with_books):
-    with open("resul1.json", "w") as file:
+    with open("result.json", "w") as file:
         groom_books_list(users_with_books)
         file.write(json.dumps(users_with_books, indent=4))
 
